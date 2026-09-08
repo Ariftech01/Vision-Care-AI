@@ -1,0 +1,20 @@
+{
+  "quality": {
+    "sharpness_score": 0.13109535629359673,
+    "illumination_score": 0.12975724299201982,
+    "fov_score": 0.9592769420808946,
+    "overall_score": 0.3376724130848693,
+    "is_gradeable": false,
+    "failure_reasons": [
+      "sharpness",
+      "illumination"
+    ],
+    "enhancement_applied": false,
+    "recapture_guidance": "Image is blurry. Please recapture with steady hands or use a tripod. Ensure the eye is properly fixated. Image has poor lighting or severe low illumination. Please adjust lighting or fundus camera flash."
+  },
+  "grading": {},
+  "calibration": {},
+  "explainability": {},
+  "lesions": {},
+  "preprocessing": {}
+}

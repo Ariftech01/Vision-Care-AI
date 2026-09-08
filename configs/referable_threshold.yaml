@@ -1,0 +1,14 @@
+referable_thresholding:
+  classes:
+  - 2
+  - 3
+  - 4
+  enabled: true
+  method: probability_sum
+  optimal_threshold: 0.24
+  validation_metrics:
+    f1: 0.9103139013452914
+    fpr: 0.06134969325153374
+    precision: 0.9103139013452914
+    sensitivity: 0.9103139013452914
+    specificity: 0.9386503067484663

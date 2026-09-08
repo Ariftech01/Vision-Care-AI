@@ -1,0 +1,20 @@
+================================================================
+VISION CARE AI — DIABETIC RETINOPATHY SCREENING REPORT
+================================================================
+Case ID:        VC-CC7B87E0
+Date & Time:    2026-09-05 23:32:26
+----------------------------------------------------------------
+[IMAGE QUALITY ASSESSMENT]
+Overall Quality Score: 0.338
+Sharpness Score:       0.131
+Illumination Score:    0.130
+FOV Score:             0.959
+Quality Decision:      REJECT
+Failure Reasons:       sharpness, illumination
+Recapture Guidance:    Image is blurry. Please recapture with steady hands or use a tripod. Ensure the eye is properly fixated. Image has poor lighting or severe low illumination. Please adjust lighting or fundus camera flash.
+----------------------------------------------------------------
+STATUS: SCREENING HALTED DUE TO IMAGE QUALITY FAILURE
+----------------------------------------------------------------
+[DISCLAIMER]
+This is an AI-assisted screening prototype and NOT a clinical diagnosis. Results should be reviewed by a qualified ophthalmologist.
+================================================================

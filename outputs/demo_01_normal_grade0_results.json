@@ -1,0 +1,55 @@
+{
+  "quality": {
+    "sharpness_score": 0.765948248270648,
+    "illumination_score": 0.8661589714145428,
+    "fov_score": 0.8604116618075802,
+    "overall_score": 0.8246378547552442,
+    "is_gradeable": true,
+    "failure_reasons": [],
+    "enhancement_applied": false,
+    "recapture_guidance": "Image quality is acceptable for grading."
+  },
+  "preprocessing": {
+    "input_shape": [
+      1050,
+      1050,
+      3
+    ],
+    "target_size": [
+      512,
+      512
+    ]
+  },
+  "lesions": {
+    "optic_disc": false,
+    "fovea": false,
+    "vessels": false,
+    "microaneurysms": true,
+    "exudates": false,
+    "hemorrhages": true,
+    "neovascularization": false
+  },
+  "grading": {
+    "predicted_grade": 4,
+    "probabilities": [
+      0.00015043139865156263,
+      4.027242539450526e-06,
+      5.2788107218759706e-09,
+      0.03926453739404678,
+      0.9605810046195984
+    ],
+    "confidence": 0.9605810046195984,
+    "referable_probability": 0.999845564365387,
+    "referable_threshold": 0.24,
+    "is_referable": true
+  },
+  "calibration": {
+    "confidence": 0.9605810046195984,
+    "calibrated": false
+  },
+  "explainability": {
+    "overlay_path": "./outputs\\demo_01_normal_grade0_gradcam.png",
+    "heatmap_path": "./outputs\\demo_01_normal_grade0_heatmap.png",
+    "target_class": 4
+  }
+}

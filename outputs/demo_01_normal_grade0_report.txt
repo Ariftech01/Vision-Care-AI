@@ -1,0 +1,37 @@
+================================================================
+VISION CARE AI — DIABETIC RETINOPATHY SCREENING REPORT
+================================================================
+Case ID:        demo_01_normal_grade0
+Date & Time:    2026-09-08 20:49:55
+----------------------------------------------------------------
+[IMAGE QUALITY ASSESSMENT]
+Overall Quality Score: 0.825
+Sharpness Score:       0.766
+Illumination Score:    0.866
+FOV Score:             0.860
+Quality Decision:      ACCEPT
+----------------------------------------------------------------
+[DIABETIC RETINOPATHY GRADING]
+Predicted Grade:       4 — Proliferative DR
+Model Confidence:      0.9606 (Uncalibrated)
+Referable Probability: 99.98% (P(Grade 2 + 3 + 4))
+Decision Threshold:    24.0%
+Referable DR Status:   YES — URGENT REFERRAL RECOMMENDED
+
+Class Probabilities:
+  Class 0 (No DR           ):   0.02%
+  Class 1 (Mild NPDR       ):   0.00%
+  Class 2 (Moderate NPDR   ):   0.00%
+  Class 3 (Severe NPDR     ):   3.93%
+  Class 4 (Proliferative DR):  96.06%
+
+[EXPLAINABILITY & ATTENTION]
+Grad-CAM Heatmap Path: ./outputs\demo_01_normal_grade0_gradcam.png
+Note: Grad-CAM overlay indicates model attention region, not manual lesion mask.
+
+[CLINICAL RECOMMENDATION]
+Refer patient to an ophthalmologist for comprehensive dilated eye examination.
+----------------------------------------------------------------
+[DISCLAIMER]
+This is an AI-assisted screening prototype and NOT a clinical diagnosis. Results should be reviewed by a qualified ophthalmologist.
+================================================================

@@ -1,0 +1,36 @@
+/* Clinical Signal design: off-white clinical canvas, ink navy hierarchy, semantic blue/cyan/coral signals, generous editorial spacing. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius); --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground); --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground); --color-destructive: var(--destructive); --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+}
+:root { --radius: .85rem; --background: oklch(.982 .008 220); --foreground: oklch(.22 .035 238); --card: oklch(1 0 0); --card-foreground: oklch(.22 .035 238); --popover: oklch(1 0 0); --popover-foreground: oklch(.22 .035 238); --primary: oklch(.56 .21 259); --primary-foreground: oklch(.99 .005 250); --secondary: oklch(.95 .025 218); --secondary-foreground: oklch(.28 .06 238); --muted: oklch(.95 .012 220); --muted-foreground: oklch(.5 .04 238); --accent: oklch(.91 .055 190); --accent-foreground: oklch(.22 .05 220); --destructive: oklch(.62 .19 25); --destructive-foreground: oklch(.99 0 0); --border: oklch(.9 .025 220); --input: oklch(.9 .025 220); --ring: oklch(.56 .21 259); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--background); color: var(--foreground); }
+button, a { transition: transform 160ms cubic-bezier(.23,1,.32,1), background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+button:active, a:active { transform: scale(.97); }
+.font-display { font-family: 'Fraunces', serif; }
+.eyebrow { color: #2563eb; font-size: .68rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.soft-grid { background-image: linear-gradient(rgba(37,99,235,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,.05) 1px, transparent 1px); background-size: 28px 28px; }
+.panel { background: rgba(255,255,255,.86); border: 1px solid #dce9f0; box-shadow: 0 18px 50px rgba(34,76,107,.07); border-radius: 22px; }
+.panel-hover { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
+.panel-hover:hover { transform: translateY(-3px); border-color: #a8d6e7; box-shadow: 0 24px 60px rgba(34,76,107,.12); }
+.sidebar-link { color: #62778a; border-left: 2px solid transparent; }
+.sidebar-link:hover, .sidebar-link.active { color: #163451; background: #eff8fb; border-left-color: #2563eb; }
+.signal-line { background: linear-gradient(90deg,#2563eb 0 35%,#9edee9 35% 100%); }
+.metric-number { font-variant-numeric: tabular-nums; letter-spacing: -.05em; }
+@keyframes reveal { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
+.reveal { animation: reveal 600ms cubic-bezier(.23,1,.32,1) both; }
+.reveal-2 { animation-delay: 80ms; } .reveal-3 { animation-delay: 150ms; } .reveal-4 { animation-delay: 220ms; }
+@media (prefers-reduced-motion: reduce) { *, html { scroll-behavior: auto !important; animation: none !important; transition-duration: 0.01ms !important; } }
+@layer base { * { @apply border-border outline-ring/50; } body { @apply bg-background text-foreground; } a { @apply cursor-pointer; } }
+@layer components { .container { width:100%; margin-inline:auto; padding-inline:1rem; } @media(min-width:640px){.container{padding-inline:1.5rem}} @media(min-width:1024px){.container{padding-inline:2rem;max-width:1440px}} }

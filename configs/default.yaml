@@ -1,0 +1,164 @@
+# SIH26038 — Default Configuration
+
+project:
+  name: "SIH26038-DR-Screening"
+  seed: 42
+  device: "auto"  # auto, cpu, cuda
+
+paths:
+  data_dir: "./data/Aptos"
+  output_dir: "./outputs"
+  checkpoint_dir: "./checkpoints"
+  log_dir: "./outputs/logs"
+
+image:
+  input_size: [512, 512]
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+
+quality:
+  enabled: true
+  thresholds:
+    sharpness: 0.18
+    illumination: 0.30
+    field_of_view: 0.50
+    overall: 0.40
+  enhancement:
+    enabled: true
+    clahe_clip_limit: 2.0
+    clahe_grid_size: [8, 8]
+    denoise_strength: 10
+  recapture_guidance:
+    sharpness_fail: "Image is blurry. Please recapture with steady hands or use a tripod. Ensure the eye is properly fixated."
+    illumination_fail: "Image has poor lighting or severe low illumination. Please adjust lighting or fundus camera flash."
+    fov_fail: "Retinal coverage is insufficient. Please center the camera on the optic disc and ensure full retinal field is visible."
+    overall_fail: "Image quality is insufficient for reliable grading. Please recapture following the above guidance."
+
+preprocessing:
+  preserve_original: true
+  resize: [512, 512]
+  normalize: true
+  extract_retinal_region: true
+  clahe:
+    enabled: true
+    clip_limit: 2.0
+    tile_grid_size: [8, 8]
+  illumination_norm:
+    enabled: true
+    method: "subtraction"  # subtraction or division
+  denoising:
+    enabled: true
+    method: "gaussian"  # gaussian, median, nlmeans
+    kernel_size: 5
+  save_intermediates: true
+
+segmentation:
+  optic_disc:
+    enabled: true
+    method: "baseline_hough"  # prototype: circular Hough transform
+  fovea:
+    enabled: true
+    method: "baseline_template"  # prototype: template matching from OD location
+  vessels:
+    enabled: true
+    method: "baseline_frangi"  # prototype: Frangi vesselness
+  microaneurysms:
+    enabled: true
+    method: "baseline_morphology"  # prototype: top-hat + morphological filtering
+  exudates:
+    enabled: true
+    method: "baseline_threshold"  # prototype: color thresholding
+  hemorrhages:
+    enabled: true
+    method: "baseline_threshold"  # prototype: color + shape analysis
+  neovascularization:
+    enabled: true
+    method: "baseline_vessel_density"  # prototype: abnormal vessel density
+
+grading:
+  num_classes: 5
+  class_names: ["No DR", "Mild NPDR", "Moderate NPDR", "Severe NPDR", "Proliferative DR"]
+  referable_threshold: 2
+  backbone: "efficientnet_b0"  # efficientnet_b0, resnet50, convnext_tiny
+  dropout: 0.3
+  use_focal_loss: true
+  focal_gamma: 2.0
+  class_weights: null  # auto-compute if null
+
+training:
+  batch_size: 16
+  num_epochs: 10
+  learning_rate: 1e-4
+  weight_decay: 1e-5
+  scheduler: "cosine"
+  warmup_epochs: 2
+  early_stopping_patience: 5
+  val_split: 0.15
+  test_split: 0.15
+  num_workers: 0
+  augmentation:
+    horizontal_flip: 0.5
+    vertical_flip: 0.3
+    rotation: 15
+    brightness_contrast: 0.2
+    gaussian_noise: 0.05
+
+calibration:
+  method: "temperature_scaling"
+  calibration_split: 0.2  # of validation set
+  max_iter: 50
+  lr: 0.01
+
+explainability:
+  method: "gradcam"
+  target_layer: "features"  # model-specific
+  colormap: "jet"
+  alpha: 0.5
+
+reporting:
+  template: "clinical"
+  include_disclaimer: true
+  disclaimer: "This is an AI-assisted screening prototype and NOT a clinical diagnosis. Results should be reviewed by a qualified ophthalmologist."
+  include_recommendations: true
+
+simulink:
+  acquisition_rate: 30  # images/hour/camera
+  bandwidth_mbps: 10
+  image_size_mb: 5
+  processing_time_sec: 8
+  review_capacity_per_day: 50
+  patient_volume_per_year: 100000
+  work_hours_per_day: 8
+  work_days_per_year: 250
+
+finetuning:
+  experiment_name: "finetune_efficientnet_b0_moderated"
+  pretrained_checkpoint: "checkpoints/best_model.pth"
+  save_checkpoint: "checkpoints/finetuned_best_model.pth"
+  two_stage: true
+  stage1_epochs: 4
+  stage1_classifier_lr: 1.0e-4
+  stage2_epochs: 14
+  stage2_backbone_lr: 5.0e-6
+  stage2_classifier_lr: 5.0e-5
+  weight_decay: 1.0e-5
+  unfreeze_stages: [6, 7, 8]  # Verified high-level feature blocks in EfficientNet-B0
+  class_weight_mode: "moderated"  # "moderated", "class_balanced", "raw", "none"
+  moderation_power: 0.5  # alpha=0.5 for square-root smoothing
+  loss_type: "moderated_ce"  # moderated cross-entropy loss (no focal stacking)
+  selection_metric: "macro_f1"  # primary validation metric
+  early_stopping_patience: 5
+
+referable_thresholding:
+  enabled: true
+  method: "probability_sum"
+  classes: [2, 3, 4]
+  optimal_threshold: 0.24  # Frozen validation-selected threshold
+  validation_metrics:
+    sensitivity: 0.9103
+    specificity: 0.9387
+    precision: 0.9103
+    f1: 0.9103
+    fpr: 0.0613
+
+
